@@ -1,0 +1,11 @@
+.login-wrapper{
+    width: 400px;
+    padding-top: 30vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media only screen and (max-width : 500px) {
+    .login-wrapper {
+        width: 300px;
+    }
+}

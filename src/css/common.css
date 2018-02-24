@@ -1,0 +1,15 @@
+.App{
+    background: url('./../images/background.png');
+    min-height: 99vh;
+    background-size: cover;
+    color: white;
+}
+.margin-0{
+    margin-top: 0 !important;
+}
+.btn {
+    background-color: rgb(20, 157, 100);
+}
+.btn:hover{
+    background-color: rgb(20, 157, 100);
+}
