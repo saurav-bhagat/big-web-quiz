@@ -1,17 +1,21 @@
 import React from 'react';
 import io from 'socket.io-client';
+import ProgressBar from 'progressbar.js';
+import './../../css/common.css';
 
 let statsSocket ;
+var Circle = ProgressBar.Circle;
 
 class Stats extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         this.state = {
             percentarray : [],
-            empty : true
+            empty : true,
+            progress : 0.5
         }
-        statsSocket = io(`http://192.168.43.12:3000`);
+        statsSocket = io(`http://159.89.173.175:3000`);
         statsSocket.on('connect', () => {
             statsSocket.emit('statsListener', {username: 'deathadder', password: '1516'},(data) => {
                 console.log(data);
@@ -26,7 +30,6 @@ class Stats extends React.Component{
             for(let i=0;i<responseArray.length;i++){
                 newPerArray.push( (responseArray[i]/argument.joined)*100 );
             }
-            this.setState({percentarray : newPerArray});
 
         });
 
@@ -50,7 +53,57 @@ class Stats extends React.Component{
                     }
                     </div>
                 }
+
+                {/* <Bar progress = { this.state.progress } /> */}
             </div>
+        );
+    }
+}
+
+class Bar extends React.Component {
+    constructor(props){
+        super(props);
+    }
+    render(){
+        var options = {
+            strokeWidth: 2,
+            trailWidth: 1,
+            easing: 'easeInOut',
+            duration: 1400,
+            text: {
+                autoStyleContainer: false
+            },
+            from: { color: '#aaa', width: 1 },
+            to: { color: '#333', width: 4 },
+            // Set default step function for all animate calls
+            step: function(state, circle) {
+                circle.path.setAttribute('stroke', state.color);
+                circle.path.setAttribute('stroke-width', state.width);
+
+                var value = Math.round(circle.value() * 100);
+                if (value === 0) {
+                    circle.setText('');
+                } else {
+                    circle.setText(value);
+                }
+            }
+        };
+
+        // For demo purposes so the container has some dimensions.
+        // Otherwise progress bar won't be shown
+        var containerStyle = {
+            width: '200px',
+            height: '200px'
+        };
+
+        return(
+            <Circle
+                progress={this.props.progress}
+                text={'test'}
+                options={options}
+                initialAnimate={true}
+                containerStyle={containerStyle}
+                containerClassName={'.progressbar'} />
         );
     }
 }

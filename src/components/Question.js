@@ -16,7 +16,7 @@ class Question extends React.Component {
             userIndex: -1,
             isDisabled : ''
         }
-        userSocket2 = io(`http://192.168.43.12:3000`);
+        userSocket2 = io(`http://159.89.173.175:3000`);
         userSocket2.on('connect', () => {
             let username  = localStorage.getItem('username');
             userSocket2.emit('join', {username: username}, (err) => {

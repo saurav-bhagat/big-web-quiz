@@ -13,7 +13,7 @@ class Login extends React.Component {
             username: ''
         }
         console.log("ionside login constructior");
-        userSocket = io(`http://192.168.43.12:3000`);
+        userSocket = io(`http://159.89.173.175:3000`);
         userSocket.on('connect', () => {
             console.log("connected");
         });
