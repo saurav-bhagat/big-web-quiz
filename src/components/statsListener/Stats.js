@@ -1,10 +1,11 @@
 import React from 'react';
 import io from 'socket.io-client';
-import ProgressBar from 'progressbar.js';
+// import ProgressBar from 'progressbar.js';
+import CircularProgressbar from 'react-circular-progressbar';
 import './../../css/common.css';
+import './../../css/circularProgress.css';
 
 let statsSocket ;
-var Circle = ProgressBar.Circle;
 
 class Stats extends React.Component{
     constructor(props){
@@ -46,9 +47,15 @@ class Stats extends React.Component{
                     <div>
                     {
                         this.state.percentarray.map((percent, i) =>
-                            <p key={i}>
-                                {i+1} -> {percent}
-                            </p>
+                            // <p key={i}>
+                            //     {i+1} -> {percent}
+                            // </p>
+                            <CircularProgressbar
+                                percentage={percent}
+                                strokeWidth="8"
+                                initialAnimation={true}
+                                textForPercentage= {() => `{percent}` }
+                            />
                         )
                     }
                     </div>
@@ -60,52 +67,52 @@ class Stats extends React.Component{
     }
 }
 
-class Bar extends React.Component {
-    constructor(props){
-        super(props);
-    }
-    render(){
-        var options = {
-            strokeWidth: 2,
-            trailWidth: 1,
-            easing: 'easeInOut',
-            duration: 1400,
-            text: {
-                autoStyleContainer: false
-            },
-            from: { color: '#aaa', width: 1 },
-            to: { color: '#333', width: 4 },
-            // Set default step function for all animate calls
-            step: function(state, circle) {
-                circle.path.setAttribute('stroke', state.color);
-                circle.path.setAttribute('stroke-width', state.width);
-
-                var value = Math.round(circle.value() * 100);
-                if (value === 0) {
-                    circle.setText('');
-                } else {
-                    circle.setText(value);
-                }
-            }
-        };
+// class Bar extends React.Component {
+//     constructor(props){
+//         super(props);
+//     }
+//     render(){
+//         var options = {
+//             strokeWidth: 2,
+//             trailWidth: 1,
+//             easing: 'easeInOut',
+//             duration: 1400,
+//             text: {
+//                 autoStyleContainer: false
+//             },
+//             from: { color: '#aaa', width: 1 },
+//             to: { color: '#333', width: 4 },
+//             // Set default step function for all animate calls
+//             step: function(state, circle) {
+//                 circle.path.setAttribute('stroke', state.color);
+//                 circle.path.setAttribute('stroke-width', state.width);
+//
+//                 var value = Math.round(circle.value() * 100);
+//                 if (value === 0) {
+//                     circle.setText('');
+//                 } else {
+//                     circle.setText(value);
+//                 }
+//             }
+//         };
 
         // For demo purposes so the container has some dimensions.
         // Otherwise progress bar won't be shown
-        var containerStyle = {
-            width: '200px',
-            height: '200px'
-        };
-
-        return(
-            <Circle
-                progress={this.props.progress}
-                text={'test'}
-                options={options}
-                initialAnimate={true}
-                containerStyle={containerStyle}
-                containerClassName={'.progressbar'} />
-        );
-    }
-}
+//         var containerStyle = {
+//             width: '200px',
+//             height: '200px'
+//         };
+//
+//         return(
+//             <Circle
+//                 progress={this.props.progress}
+//                 text={'test'}
+//                 options={options}
+//                 initialAnimate={true}
+//                 containerStyle={containerStyle}
+//                 containerClassName={'.progressbar'} />
+//         );
+//     }
+// }
 
 export default Stats;
