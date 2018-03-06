@@ -1,11 +1,20 @@
 .login-wrapper{
     width: 400px;
-    padding-top: 30vh;
     margin-left: auto;
     margin-right: auto;
+    padding: 10px 20px 15px 20px;
+    background: #424242;
+    border-radius: 3px;
+    border-left: 6px solid rgb(20, 157, 100) !important;
 }
 @media only screen and (max-width : 500px) {
     .login-wrapper {
         width: 300px;
     }
+}
+.c2cLogo{
+    text-align: center;
+}
+.c2cLogo img {
+    width: 450px;
 }

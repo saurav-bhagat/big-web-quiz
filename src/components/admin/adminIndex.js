@@ -11,7 +11,7 @@ class AdminIndex extends React.Component {
         adminSocket = io('http://159.89.173.175:3000');
         adminSocket.on('connect', (back) => {
             console.log(back);
-            adminSocket.emit('adminLogin', {username: "akshitgrover", password: "1516"}, (res) => {
+            adminSocket.emit('adminLogin', {username: "akshitgrover", password: "c2c_2.0"}, (res) => {
                 console.log(res);
                 swal(res);
             })

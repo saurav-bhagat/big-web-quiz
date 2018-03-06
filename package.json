@@ -19,6 +19,7 @@
     "sweetalert": "^2.1.0"
   },
   "scripts": {
+    "postbuild": "cd build;cp index.html 200.html;sudo rm -f static/js/*.js.map;",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

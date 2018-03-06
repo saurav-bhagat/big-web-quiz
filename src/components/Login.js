@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import './../css/login.css';
+import c2cLogo from './../images/logowhite.png';
 
 let userSocket;
 
@@ -47,9 +48,12 @@ class Login extends React.Component {
     }
     render(){
         return(
-            <div className="login-wrapper">
-                <div className="">
-                    <h4>username: </h4>
+            <div className="login-container">
+                <div className="c2cLogo" >
+                    <img src={ c2cLogo }  alt="code2create" />
+                </div>
+                <div className="login-wrapper z-depth-5">
+                    <h4>Username: </h4>
                     <input type="text" onChange={this.usernameChange} />
 
                     <input type="submit" value="Join" className="btn" onClick={this.handleJoin} />
