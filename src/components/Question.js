@@ -2,6 +2,8 @@ import React from 'react';
 import io from 'socket.io-client';
 import swal from 'sweetalert';
 import './../css/Question.css';
+import './../css/common.css';
+import c2cImage from './../images/logowhite.png';
 
 let userSocket2;
 class Question extends React.Component {
@@ -14,7 +16,8 @@ class Question extends React.Component {
             responseIndex : -1,
             response : 0,
             userIndex: -1,
-            isDisabled : ''
+            isDisabled : '',
+            showQuestion : false
         }
         userSocket2 = io(`http://159.89.173.175:3000`);
         userSocket2.on('connect', () => {
@@ -33,7 +36,8 @@ class Question extends React.Component {
                 response : 0,
                 userIndex: -1,
                 responseIndex : -1,
-                isDisabled : ''
+                isDisabled : '',
+                showQuestion : true
             });
         });
 
@@ -69,6 +73,9 @@ class Question extends React.Component {
         newResponse = e.target.value;
         console.log("Id selected is: " + e.target.id);
         this.setState({response : newResponse , userIndex: parseInt(e.target.id) });
+        userSocket2.emit('secRes', { qnum : this.state.qnum, response : this.state.response }, (err) => {
+            swal("Oops!", err.err , "error");
+        });
     }
     render(){
         let options = [];
@@ -77,70 +84,87 @@ class Question extends React.Component {
 
         return(
             <div>
-                <div className="inc-margin-top"></div>
-                <div className="question-card z-depth-5">
-                    <br /><br />
-                    <h4 className="margin-0">
-                        {this.state.qnum}:
-                        {this.state.qstmt}
-                    </h4>
-                    <div className="question-component">
-                    {
-                        options.map((opt,i) => {
 
-                            console.table([this.state.responseIndex, this.state.userIndex]);
-
-                            if( i  === this.state.userIndex && this.state.responseIndex !== i && this.state.responseIndex !== -1){
-                                return (
-                                    <p key={i}  className="input-para red-option">
-                                        <input className="with-gap"
-                                            name="group1"
-                                            type="radio"
-                                            id={i}
-                                            value={opt}
-                                            onChange={this.handleOptionChange}
-                                         />
-                                        <label htmlFor={i} >{ opt }</label>
-                                    </p> );
-                            }
-
-                            else if( i === this.state.responseIndex){
-                                return (
-                                    <p key={i}  className="input-para green-option">
-                                        <input className="with-gap"
-                                            name="group1"
-                                            type="radio"
-                                            id={i}
-                                            value={opt}
-                                            onChange={this.handleOptionChange}
-                                         />
-                                        <label htmlFor={i} >{ opt }</label>
-                                    </p> );
-                            }
-
-                            else {
-                                return (
-                                    <p key={i}  className="input-para">
-                                        <input className="with-gap"
-                                            name="group1"
-                                            type="radio"
-                                            id={i}
-                                            value={opt}
-                                            onChange={this.handleOptionChange}
-                                            disabled = {this.state.isDisabled}
-                                         />
-                                        <label htmlFor={i} >{ opt }</label>
-                                    </p> );
-                            }
-
-                        })
-                    }
-                    </div>
-
-                    <button className="btn" onClick={this.postResponse} >Submit</button>
-                    <br />
-                    <br />
+                <div className="c2cLogo">
+                    <img src={c2cImage} alt="c2c" />
                 </div>
+
+                {
+                    !this.state.showQuestion && <div className="make-card z-depth-5">
+                        <h3 className="center-align margin-0"> Get Ready to Answer or Scratch your heads with Head-Scratcher </h3>
+                    </div>
+                }
+
+                {
+                    this.state.showQuestion &&
+                        <div>
+                            <div className="inc-margin-top"> </div>
+                            <div className="question-card z-depth-5">
+                                <br /><br />
+                                <h4 className="margin-0">
+                                    {this.state.qnum}:
+                                    {this.state.qstmt}
+                                </h4>
+                                <div className="question-component">
+                                    {
+                                        options.map((opt,i) => {
+
+                                            console.table([this.state.responseIndex, this.state.userIndex]);
+
+                                            if( i  === this.state.userIndex && this.state.responseIndex !== i && this.state.responseIndex !== -1){
+                                                return (
+                                                    <p key={i}  className="input-para red-option">
+                                                        <input className="with-gap"
+                                                               name="group1"
+                                                               type="radio"
+                                                               id={i}
+                                                               value={opt}
+                                                               onChange={this.handleOptionChange}
+                                                        />
+                                                        <label htmlFor={i} >{ opt }</label>
+                                                    </p> );
+                                            }
+
+                                            else if( i === this.state.responseIndex){
+                                                return (
+                                                    <p key={i}  className="input-para green-option">
+                                                        <input className="with-gap"
+                                                               name="group1"
+                                                               type="radio"
+                                                               id={i}
+                                                               value={opt}
+                                                               onChange={this.handleOptionChange}
+                                                        />
+                                                        <label htmlFor={i} >{ opt }</label>
+                                                    </p> );
+                                            }
+
+                                            else {
+                                                return (
+                                                    <p key={i}  className="input-para">
+                                                        <input className="with-gap"
+                                                               name="group1"
+                                                               type="radio"
+                                                               id={i}
+                                                               value={opt}
+                                                               onChange={this.handleOptionChange}
+                                                               disabled = {this.state.isDisabled}
+                                                        />
+                                                        <label htmlFor={i} >{ opt }</label>
+                                                    </p> );
+                                            }
+
+                                        })
+                                    }
+                                </div>
+
+                                <button className="btn" onClick={this.postResponse} >Submit</button>
+                                <br />
+                                <br />
+                            </div>
+                        </div>
+                }
+
             </div>
         );
     }

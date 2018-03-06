@@ -11,9 +11,9 @@ label {
 [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after{
     border: 2px solid rgb(20, 157, 100);
 }
-.inc-margin-top{
-    padding-top: 100px;
-}
+/*.inc-margin-top{*/
+    /*padding-top: 100px;*/
+/*}*/
 .question-card{
     background: #424242 ;
     width: 90vw;

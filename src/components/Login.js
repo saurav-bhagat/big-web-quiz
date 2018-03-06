@@ -58,6 +58,9 @@ class Login extends React.Component {
 
                     <input type="submit" value="Join" className="btn" onClick={this.handleJoin} />
                 </div>
+                <div className="footer">
+                    <p>Made With <i className="fa fa-heart"></i> by ACM</p>
+                </div>
             </div>
         );
     }

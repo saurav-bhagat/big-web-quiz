@@ -37,7 +37,7 @@ class AdminIndex extends React.Component {
         // console.log("give Question");
         adminSocket.emit('sendQue', (err) => {
             console.log("inside sendQue");
-            console.log(err);
+            swal("Oops!", err, "error");
             swal("Oops!", err.err, "error");
         });
     }
@@ -80,7 +80,7 @@ class AdminIndex extends React.Component {
                 <br /><br />
                 <button className="btn" onClick={this.saveScore} >Save Score</button>
                 <br /><br />
-                <button className="btn" onClick={this.getCorRes} >Save Score</button>
+                <button className="btn" onClick={this.getCorRes} >Show Response</button>
             </div>
         );
     }
