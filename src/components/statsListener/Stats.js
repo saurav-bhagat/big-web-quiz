@@ -18,7 +18,7 @@ class Stats extends React.Component{
             barWait : false,
             currentQuote : 'Hi! Welcome To Code2Create.'
         }
-        statsSocket = io(`http://159.89.173.175:3000`);
+        statsSocket = io(`http://192.168.43.12:3000`);
         statsSocket.on('connect', () => {
             statsSocket.emit('statsListener', {username: 'akshitgrover', password: 'c2c_2.0'},(data) => {
                 console.log(data);

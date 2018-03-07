@@ -19,7 +19,7 @@ class Question extends React.Component {
             isDisabled : '',
             showQuestion : false
         }
-        userSocket2 = io(`http://159.89.173.175:3000`);
+        userSocket2 = io(`http://192.168.43.12:3000`);
         userSocket2.on('connect', () => {
             let username  = localStorage.getItem('username');
             userSocket2.emit('join', {username: username}, (err) => {
@@ -73,7 +73,8 @@ class Question extends React.Component {
         newResponse = e.target.value;
         console.log("Id selected is: " + e.target.id);
         this.setState({response : newResponse , userIndex: parseInt(e.target.id) });
-        userSocket2.emit('secRes', { qnum : this.state.qnum, response : this.state.response }, (err) => {
+        userSocket2.emit('secRes', { qnum : this.state.qnum, response : newResponse }, (err) => {
+            console.log("abhi kar rhe hai");
             swal("Oops!", err.err , "error");
         });
     }
