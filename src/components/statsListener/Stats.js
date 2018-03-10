@@ -106,7 +106,7 @@ class Stats extends React.Component{
                         {
 
                             this.state.percentarray.map((percent, i) =>
-                                <div className="circular-bar col s6 m3" key ={i}>
+                                <div className="circular-bar col s6 m3 center" key ={i}>
                                     <CircularProgressbar
                                         percentage={percent}
                                         className = {colors[i]}
@@ -114,6 +114,7 @@ class Stats extends React.Component{
                                         initialAnimation={true}
                                         textForPercentage= {(percent) => percent }
                                     />
+                                    <h5>Option {i+1}</h5>
                                 </div>
                             )
 

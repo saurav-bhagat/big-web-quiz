@@ -38,3 +38,70 @@ label {
 .red-option {
     border: 2px solid #ff8a80 ;
 }
+.answerOptions {
+    margin: 0;
+    list-style: none;
+    position: relative;
+}
+.option-letter {
+    background-color: #666666;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 5px;
+    -o-transition: background-color .5s ease;
+    -webkit-transition: background-color .5s ease;
+    transition: background-color .5s ease;
+}
+.answerOption {
+    border-top: 1px solid #666666;
+    position: relative;
+}
+.answerOption {
+    padding: 2rem 1rem;
+    list-style-type: none;
+    cursor: pointer !important;
+    padding-right: 80px;
+    color: #404040;
+    cursor: pointer;
+    -o-transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
+.is-correct {
+    background-color: green;
+    color: #fff;
+}
+.option-col{
+    color: #fff;
+}
+.answerOption:hover{
+    background-color: #4e4d4d;
+}
+.answerOption.selected .option-letter{
+    background-color: #fffcfc;
+    color: #000;
+}
+.answerOption.wrongattempted .option-letter{
+    background-color: red;
+    color: #fff;
+}
+.answerOption.correct .option-letter{
+    background-color: green;
+    color: #fff;
+}
+.your-response {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .8rem;
+    color: #cd413a;
+}
+.correct .your-response{
+    color:green;
+}
+.questionno{
+    font-size: 1.5rem;
+    color: #9E9E9E;
+}

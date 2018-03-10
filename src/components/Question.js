@@ -15,7 +15,7 @@ class Question extends React.Component {
             qstmt: '',
             qchoice: '',
             responseIndex : -1,
-            response : 0,
+            response : '',
             userIndex: -1,
             isDisabled : '',
             showQuestion : false
@@ -35,10 +35,10 @@ class Question extends React.Component {
                 qnum : data.qnum,
                 qstmt : data.qstmt,
                 qchoice : data.qchoice,
-                response : 0,
+                response : '',
                 userIndex: -1,
                 responseIndex : -1,
-                isDisabled : '',
+                isDisabled : false,
                 showQuestion : true
             });
             if(this.state.userIndex !== -1) {
@@ -60,21 +60,32 @@ class Question extends React.Component {
             swal("Select a option first");
             return;
         }
-        userSocket2.emit('postRes', {qnum : this.state.qnum, response : this.state.response}, (err) => {
-            console.log(err);
-            swal("Oops!", err.err , "error");
-            // alert(err.err);
-        });
-        this.setState({ isDisabled: 'disabled' });
+        else{
+            userSocket2.emit('postRes', {qnum : this.state.qnum, response : this.state.response}, (err) => {
+                console.log(err);
+                swal("Oops!", err.err , "error");
+                userSocket2.on('disconnect' , () => {
+                    window.location.href="/"
+                });
+
+            });
+            this.setState({ isDisabled: true });
+        }
     }
 
-    handleOptionChange = (e) => {
+    handleOptionChange = (i,opt) => {
+        if(this.state.isDisabled===true)
+         return;
         let newResponse;
-        newResponse = e.target.value;
-        console.log("Id selected is: " + e.target.id);
-        this.setState({response : newResponse , userIndex: parseInt(e.target.id) });
+        newResponse = opt;
+        console.log("Id selected is: " + i);
+        console.log("Response:"+newResponse);
+        this.setState({response : newResponse , userIndex: parseInt(i) });
         userSocket2.emit('secRes', { qnum : this.state.qnum, response : newResponse }, (err) => {
             console.log("abhi kar rhe hai");
+            userSocket2.on('disconnect' , () => {
+                window.location.href="/"
+            });
             swal("Oops!", err.err , "error");
         });
     }
@@ -82,7 +93,7 @@ class Question extends React.Component {
         let options = [];
         options = [...this.state.qchoice];
         console.log(options);
-
+        const alpha=['A','B','C','D'];
         return(
             <div>
 
@@ -98,81 +109,126 @@ class Question extends React.Component {
 
                 {
                     this.state.showQuestion &&
-                        <div>
-                            <div className="inc-margin-top"> </div>
-                            <div className="question-card z-depth-5">
-                                <br /><br />
-                                <h4 className="margin-0">
-                                    {Number(this.state.qnum)+1}:
-                                    { renderHTML(this.state.qstmt) }
-                                </h4>
-                                <div className="question-component">
-                                    {
-                                        options.map((opt,i) => {
+                    <div>
+                        <div className="question-card z-depth-5" style={{padding:"20px 10px"}}>
+                            <h4>Hello {localStorage.username}</h4>
+                        </div>
+                        <br/><br/>
+                        <div className="inc-margin-top"> </div>
+                        <div className="question-card z-depth-5">
+                            <br /><br />
+                            <h4 className="margin-0">
+                                <span className="questionno">Q{Number(this.state.qnum)+1}.&nbsp;</span><br/>
+                                { renderHTML(this.state.qstmt) }
+                            </h4>
+                            <div className="question-component">
+                                <ul className="answerOptions">
+                                {
+                                    options.map((opt,i) => {
 
-                                            console.table([this.state.responseIndex, this.state.userIndex]);
+                                        console.table([this.state.responseIndex, this.state.userIndex]);
 
-                                            if( i  === this.state.userIndex && this.state.responseIndex !== i && this.state.responseIndex !== -1){
-                                                return (
-                                                    <p key={i}  className="input-para red-option">
-                                                        <input className="with-gap"
-                                                               name="group1"
-                                                               type="radio"
-                                                               id={i}
-                                                               value={opt}
-                                                               onChange={this.handleOptionChange}
-                                                               disabled = {this.state.isDisabled}
-                                                        />
-                                                        <label htmlFor={i} >{ opt }</label>
-                                                    </p> );
+                                        if( i  === this.state.userIndex && this.state.responseIndex !== i && this.state.responseIndex !== -1){
+                                            return (
+                                                <li key={i} className="answerOption wrongattempted">
+                                                    <div className="option-div-wrap">
+                                                        <div className="row">
+                                                            <div className="col s2 m1">
+                                                                <span className="option-letter">
+                                                                    {alpha[i]}
+                                                                </span>
+                                                            </div>
+                                                            <div className="col s10 m11 option-col" style={{display: "inherit"}}>
+                                                                { opt }
+                                                            </div>
+                                                        </div>
+                                                        <span className="your-response">YOUR RESPONSE</span>
+                                                    </div>
+                                                </li>
+                                            )
                                             }
 
                                             else if( i === this.state.responseIndex){
                                                 return (
-                                                    <p key={i}  className="input-para green-option">
-                                                        <input className="with-gap"
-                                                               name="group1"
-                                                               type="radio"
-                                                               id={i}
-                                                               value={opt}
-                                                               onChange={this.handleOptionChange}
-                                                               disabled = {this.state.isDisabled}
-                                                        />
-                                                        <label htmlFor={i} >{ opt }</label>
-                                                    </p> );
-                                            }
+                                                    <li key={i} className="answerOption correct">
+                                                        <div className="option-div-wrap">
+                                                            <div className="row">
+                                                                <div className="col s2 m1">
+                                                                    <span className="option-letter">
+                                                                        {alpha[i]}
+                                                                    </span>
+                                                                </div>
+                                                                <div className="col s10 m11 option-col" style={{display: "inherit"}}>
+                                                                    { opt }
+                                                                </div>
+                                                            </div>
+                                                            {this.state.userIndex===i? <span className="your-response">YOUR RESPONSE</span>:<span className="your-response">CORRECT ANSWER</span>}
+                                                        </div>
+                                                    </li>
+                                                )
+                                                }
 
-                                            else {
-                                                return (
-                                                    <p key={i}  className="input-para">
-                                                        <input className="with-gap"
-                                                               name="group1"
-                                                               type="radio"
-                                                               id={i}
-                                                               value={opt}
-                                                               onChange={this.handleOptionChange}
-                                                               disabled = {this.state.isDisabled}
-                                                        />
-                                                        <label htmlFor={i} >{ opt }</label>
-                                                    </p> );
-                                            }
+                                                else {
+                                                    if(this.state.userIndex===i){
+                                                        return (
+                                                            <li key={i} className="answerOption selected" onClick={()=>this.handleOptionChange(i,opt)}>
+                                                                <div className="option-div-wrap">
+                                                                    <div className="row">
+                                                                        <div className="col s2 m1">
+                                                                            <span className="option-letter">
+                                                                                {alpha[i]}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div className="col s10 m11 option-col" style={{display: "inherit"}}>
+                                                                            { opt }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        );
+                                                    }
+                                                    else{
+                                                        return (
+                                                            <li key={i} className="answerOption" onClick={()=>this.handleOptionChange(i,opt)}>
+                                                                <div className="option-div-wrap">
+                                                                    <div className="row">
+                                                                        <div className="col s2 m1">
+                                                                            <span className="option-letter">
+                                                                                {alpha[i]}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div className="col s10 m11 option-col" style={{display: "inherit"}}>
+                                                                            { opt }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        );
+                                                    }
 
-                                        })
+                                                }
+                                            })
+                                        }
+                                    </ul>
+                                    </div>
+                                    <br/>
+                                    {(this.state.isDisabled || this.state.responseIndex!==-1)?
+                                        <button className="btn" disabled={true} >Submitted</button>
+                                        :
+                                        <button className="btn" onClick={this.postResponse} >Submit</button>
                                     }
+
+                                    <br />
+                                    <br /><br />
                                 </div>
-
-                                <button className="btn" onClick={this.postResponse} >Submit</button>
-                                <br />
-                                <br />
                             </div>
-                        </div>
-                }
-
-            </div>
-        );
-    }
-}
-
+                        }
+                        <br/><br/>
+                    </div>
+                );
+            }
+        }
 
 
-export default Question;
+
+        export default Question;

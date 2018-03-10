@@ -40,7 +40,7 @@ class App extends Component {
                  <Switch>
                      <Route exact path='/question' component={Question}  />
                      <Route exact path='/' component={Login}  />
-                     <Route exact path='/admin' component= {AdminIndex} />
+                     <Route exact path='/admin-c2c-hidden-97' component= {AdminIndex} />
                      <Route exact path='/stats' component = {statsListener} />
                  </Switch>
             </div>

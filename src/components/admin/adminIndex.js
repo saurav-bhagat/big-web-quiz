@@ -13,12 +13,11 @@ class AdminIndex extends React.Component {
             console.log(back);
             adminSocket.emit('adminLogin', {username: "akshitgrover", password: "c2c_2.0"}, (res) => {
                 console.log(res);
-                swal("Oops!" , res, "error");
             })
         });
 
         adminSocket.on('getAdminToken', (data) => {
-            swal(data);
+
             adminSocket.emit('open');
         });
 
@@ -26,7 +25,7 @@ class AdminIndex extends React.Component {
             console.log("admin disconnect");
         });
         adminSocket.on('saved', (data) => {
-            swal(data);
+
         });
 
         this.giveQuestion = this.giveQuestion.bind(this);
@@ -37,28 +36,24 @@ class AdminIndex extends React.Component {
         // console.log("give Question");
         adminSocket.emit('sendQue', (err) => {
             console.log("inside sendQue");
-            swal("Oops!", err, "error");
-            swal("Oops!", err.err, "error");
+
         });
     }
     lockQuiz = () => {
         console.log("Inside lock Quiz");
         adminSocket.emit('lockIt', (err) => {
             console.log(err);
-            swal("Oops!", err.err, "error");
         });
     }
     openQuiz = () => {
         console.log("Inside openQuiz");
         adminSocket.emit('open', (err) => {
             console.log(err);
-            swal("Oops!", err.err, "error");
         });
     }
     saveScore = () => {
         adminSocket.emit('saveScore' , (err) => {
             console.log(err);
-            swal("Oops!", err.err, "error");
         });
     }
 
