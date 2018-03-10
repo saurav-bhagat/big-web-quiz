@@ -1,6 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 import swal from 'sweetalert';
+import renderHTML from 'react-render-html';
 import './../css/Question.css';
 import './../css/common.css';
 import c2cImage from './../images/logowhite.png';
@@ -29,6 +30,7 @@ class Question extends React.Component {
         });
         userSocket2.on('getQue', (data) => {
             console.log("inside get Que");
+            console.log(data.qchoice)
             this.setState({
                 qnum : data.qnum,
                 qstmt : data.qstmt,
@@ -39,12 +41,10 @@ class Question extends React.Component {
                 isDisabled : '',
                 showQuestion : true
             });
+            if(this.state.userIndex !== -1) {
+                document.getElementById(this.state.userIndex).checked = false;
+            }
         });
-
-        if(this.state.userIndex !== -1) {
-            document.getElementById(this.state.userIndex).checked = false;
-        }
-
         userSocket2.on('corResponse', (data)=> {
             console.log(data);
             this.setState({ responseIndex : parseInt(data.dataQues) });
@@ -103,8 +103,8 @@ class Question extends React.Component {
                             <div className="question-card z-depth-5">
                                 <br /><br />
                                 <h4 className="margin-0">
-                                    {this.state.qnum}:
-                                    {this.state.qstmt}
+                                    {Number(this.state.qnum)+1}:
+                                    { renderHTML(this.state.qstmt) }
                                 </h4>
                                 <div className="question-component">
                                     {
@@ -121,6 +121,7 @@ class Question extends React.Component {
                                                                id={i}
                                                                value={opt}
                                                                onChange={this.handleOptionChange}
+                                                               disabled = {this.state.isDisabled}
                                                         />
                                                         <label htmlFor={i} >{ opt }</label>
                                                     </p> );
@@ -135,6 +136,7 @@ class Question extends React.Component {
                                                                id={i}
                                                                value={opt}
                                                                onChange={this.handleOptionChange}
+                                                               disabled = {this.state.isDisabled}
                                                         />
                                                         <label htmlFor={i} >{ opt }</label>
                                                     </p> );
