@@ -23,8 +23,8 @@
     text-align: center;
 }
 .footer{
-    font-size: 2rem;
-    position: absolute;
+    font-size: 1.7rem;
+    position: fixed;
     bottom: 10px;
     right: 40px;
 }

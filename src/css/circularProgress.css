@@ -15,12 +15,24 @@
     height: 200px;
 }
 
+
 .CircularProgressbar .CircularProgressbar-path {
-    stroke: #ff735d;
+    /* stroke: #ff735d; */
     stroke-linecap: round;
     transition: stroke-dashoffset 0.5s ease 0s;
 }
-
+ .blackk .CircularProgressbar-path{
+  stroke : #ffff00 !important; /*Yellow*/
+}
+ .redd  .CircularProgressbar-path{
+  stroke :#ff3d00 ; /*orange*/
+}
+.greenn .CircularProgressbar-path {
+  stroke : #00c853 ; /*green*/
+}
+ .bluee .CircularProgressbar-path {
+  stroke : #b71c1c; /*red*/
+}
 .CircularProgressbar .CircularProgressbar-trail {
     stroke: #d6d6d6;
 }
@@ -31,5 +43,3 @@
     dominant-baseline: middle;
     text-anchor: middle;
 }
-
-
