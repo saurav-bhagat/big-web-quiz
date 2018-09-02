@@ -17,7 +17,7 @@ class Stats extends React.Component{
             empty : true,
             progress : 0.5,
             barWait : false,
-            currentQuote : 'Hi! Welcome To Code2Create.',
+            currentQuote : 'Hi! Welcome To Learn To Complete.',
             winners : [],
             gameEnd : false
         }
