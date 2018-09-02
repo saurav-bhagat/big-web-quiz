@@ -21,7 +21,7 @@ class Stats extends React.Component{
             winners : [],
             gameEnd : false
         }
-        statsSocket = io(`http://159.89.173.175:3000`);
+        statsSocket = io(`http://139.59.7.242:80`);
         statsSocket.on('connect', () => {
             statsSocket.emit('statsListener', {username: 'akshitgrover', password: 'c2c_2.0'},(data) => {
                 console.log(data);

@@ -20,7 +20,7 @@ class Question extends React.Component {
             isDisabled : '',
             showQuestion : false
         }
-        userSocket2 = io(`http://159.89.173.175:3000`);
+        userSocket2 = io(`http://139.59.7.242:80`);
         userSocket2.on('connect', () => {
             let username  = localStorage.getItem('username');
             userSocket2.emit('join', {username: username}, (err) => {

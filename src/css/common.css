@@ -9,10 +9,10 @@
     margin-top: 0 !important;
 }
 .btn {
-    background-color: rgb(20, 157, 100);
+    background-color: #f05262;
 }
 .btn:hover{
-    background-color: rgb(20, 157, 100);
+    background-color: #f05262;
 }
 #containe{
     width: 300px;
@@ -20,10 +20,10 @@
 }
 .make-card{
     /*margin-top: 30vh;*/
-    border-left: 6px solid rgb(20, 157, 100);
+    border-left: 6px solid #f05262;
     padding: 14px;
     width: 60vw;
-    background: #424242;
+    background: #4a4a4a;
     margin-right: auto;
     margin-left: auto;
 }
@@ -49,14 +49,14 @@
 }
 .winners-card{
     /*margin-top: 30vh;*/
-    border-left: 6px solid rgb(20, 157, 100);
+    border-left: 6px solid #f05262;
     padding: 14px;
     width: 60vw;
     font-size: 1.8rem;
     text-transform: capitalize;
     font-weight: bold;
     text-align: center;
-    background: #424242;
+    background: #4a4a4a;
     margin-right: auto;
     margin-left: auto;
     min-height: 200px;

@@ -8,7 +8,7 @@ class AdminIndex extends React.Component {
     constructor(){
         super();
         console.log("inside adin constructior");
-        adminSocket = io('http://159.89.173.175:3000');
+        adminSocket = io(`http://139.59.7.242:80`);
         adminSocket.on('connect', (back) => {
             console.log(back);
             adminSocket.emit('adminLogin', {username: "akshitgrover", password: "c2c_2.0"}, (res) => {

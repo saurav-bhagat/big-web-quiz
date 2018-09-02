@@ -3,12 +3,13 @@
     margin-left: auto;
     margin-right: auto;
     padding: 10px 20px 15px 20px;
-    background: #424242;
+    background: #4a4a4a;
     border-radius: 3px;
-    border-left: 6px solid rgb(20, 157, 100) !important;
+    border-left: 6px solid #f05262 !important;
 }
 .c2cLogo img {
     width: 450px;
+    margin: 6em 0;
 }
 
 @media only screen and (max-width : 500px) {
@@ -29,5 +30,5 @@
     right: 40px;
 }
 .footer .fa {
-    color: rgb(20, 157, 100) !important;
+    color: #f05262 !important;
 }

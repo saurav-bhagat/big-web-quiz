@@ -14,7 +14,7 @@ class Login extends React.Component {
             username: ''
         }
         console.log("ionside login constructior");
-        userSocket = io(`http://159.89.173.175:3000`);
+        userSocket = io(`http://139.59.7.242:80`);
         userSocket.on('connect', () => {
             console.log("connected");
         });
@@ -58,7 +58,7 @@ class Login extends React.Component {
 
                     <input type="submit" value="Join" className="btn" onClick={this.handleJoin} />
                 </div>
-                <div className="footer">
+                <div className="footer" style={{ color:'#4a4a4a' }}> 
                     <p>Developed With <i className="fa fa-heart"></i> by ACM</p>
                 </div>
             </div>
